@@ -30,10 +30,10 @@ import kotlinx.coroutines.flow.Flow
 @Dao
 interface ForageableDao {
 
-    @Query("SELECT * FROM forageable_database")
+    @Query("SELECT * FROM forageable")
     fun getForageables(): Flow<List<Forageable>>
 
-    @Query("SELECT * FROM forageable_database WHERE id = :id")
+    @Query("SELECT * FROM forageable WHERE id = :id")
     fun getForageable(id: Long): Flow<Forageable>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)

@@ -22,7 +22,7 @@ import androidx.room.PrimaryKey
 /**
  * Forageable entity to be stored in the forageable_database.
  */
-@Entity(tableName = "forageable_database")
+@Entity(tableName = "forageable")
 data class Forageable(
     @PrimaryKey(autoGenerate = true)
     val id: Long = 0,
