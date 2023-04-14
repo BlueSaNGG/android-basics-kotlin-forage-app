@@ -28,20 +28,22 @@ import kotlinx.coroutines.launch
  */
 
 private const val TAG = "viewmodel"
+
 // TODO: pass a ForageableDao value as a parameter to the view model constructor
 class ForageableViewModel(
     private val forageableDao: ForageableDao
     // Pass dao here
-): ViewModel() {
+) : ViewModel() {
 
     // TODO: create a property to set to a list of all forageables from the DAO
-    private val forageables: LiveData<List<Forageable>> = forageableDao.getForageables().asLiveData()
+    val forageables: LiveData<List<Forageable>> =
+        forageableDao.getForageables().asLiveData()
+
     // TODO : create method that takes id: Long as a parameter and retrieve a Forageable from the
     //  database by id via the DAO.
     fun getForageable(id: Long): LiveData<Forageable> {
         return forageableDao.getForageable(id).asLiveData()
     }
-
 
 
     fun addForageable(
@@ -57,7 +59,7 @@ class ForageableViewModel(
             notes = notes
         )
 
-    // TODO: launch a coroutine and call the DAO method to add a Forageable to the database within it
+        // TODO: launch a coroutine and call the DAO method to add a Forageable to the database within it
         viewModelScope.launch(Dispatchers.IO) {
             forageableDao.insert(forageable)
             Log.d(TAG, "addForageable: ${forageable}")
@@ -99,7 +101,8 @@ class ForageableViewModel(
 
 // TODO: create a view model factory that takes a ForageableDao as a property and
 //  creates a ForageableViewModel
-class ForagebleViewModelFactory(private val foragebleDao: ForageableDao): ViewModelProvider.Factory {
+class ForageableViewModelFactory(private val foragebleDao: ForageableDao) :
+    ViewModelProvider.Factory {
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
         if (modelClass.isAssignableFrom(ForageableViewModel::class.java)) {
             @Suppress("UNCHECKED_CAST")
